@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mythology AI Content Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="aurora"></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">ॐ</div>
+      <div>
+        <h1>Mythology AI Content Studio</h1>
+        <p>Viral topic • Script • Image prompt • Voice-over • Video analysis</p>
+      </div>
+    </div>
+    <div class="status-pill" id="apiStatus">Checking API...</div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel input-panel">
+      <div class="section-title">
+        <span>Channel Setup</span>
+        <button class="ghost" id="sampleBtn">Demo Fill</button>
+      </div>
+
+      <label>Channel Name</label>
+      <input id="channelName" value="CURRENT AFFAIR WORLD" placeholder="Your channel name" />
+
+      <div class="grid-2">
+        <div>
+          <label>Niche</label>
+          <select id="niche">
+            <option>Mythology</option>
+            <option>Ramayan</option>
+            <option>Mahabharat</option>
+            <option>Shiv Puran</option>
+            <option>Krishna Stories</option>
+            <option>Hanuman Stories</option>
+            <option>Facts + Mythology</option>
+          </select>
+        </div>
+        <div>
+          <label>Language</label>
+          <select id="language">
+            <option>Hindi</option>
+            <option>Hinglish</option>
+            <option>English</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Video Type</label>
+          <select id="videoType">
+            <option>Shorts</option>
+            <option>Long Video</option>
+          </select>
+        </div>
+        <div>
+          <label>Duration</label>
+          <select id="duration">
+            <option>60 seconds</option>
+            <option>45 seconds</option>
+            <option>90 seconds</option>
+            <option>5 minutes</option>
+            <option>8 minutes</option>
+            <option>12 minutes</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Main Topic / Seed Idea</label>
+      <textarea id="topic" rows="3" placeholder="Example: Agar Hanuman ji chahte to Ramayan yudh hota hi nahi?"></textarea>
+
+      <label>Audience</label>
+      <input id="audience" value="Hindi mythology viewers aur students" />
+
+      <label>Tone / Style</label>
+      <input id="tone" value="Cinematic, suspenseful, devotional, simple Hindi" />
+
+      <label>Goal</label>
+      <input id="goal" value="Views, retention, subscribers, watch time" />
+
+      <label>Trend Keywords</label>
+      <textarea id="keywords" rows="3">Ramayan, Mahabharat, Hanuman ji, Krishna, Shiv ji, Vishnu, रहस्य, क्या होता अगर, hidden truth</textarea>
+
+      <label>Reference / Competitor Notes</label>
+      <textarea id="references" rows="3" placeholder="Competitor video title, link, or notes paste kare"></textarea>
+
+      <label>Your Channel Data / Old Video Titles</label>
+      <textarea id="channelData" rows="4" placeholder="Apne channel ke best videos, views, topics ya audience comments paste kare"></textarea>
+
+      <button class="primary wide" id="saveContextBtn">Save Channel Setup</button>
+    </aside>
+
+    <section class="workspace">
+      <div class="hero panel">
+        <div>
+          <span class="eyebrow">AI Production Dashboard</span>
+          <h2>एक ही जगह से पूरा Mythology video package बनाइए</h2>
+          <p>Topic idea से लेकर final upload SEO तक — Gemini API से real output. Video upload करके mistakes भी analyze कर सकते हैं.</p>
+        </div>
+        <div class="hero-card">
+          <strong>Best workflow</strong>
+          <span>1. Topic Finder</span>
+          <span>2. Full Package</span>
+          <span>3. Video Analyzer</span>
+        </div>
+      </div>
+
+      <div class="tabs panel">
+        <button class="tab active" data-mode="topics">Viral Topics</button>
+        <button class="tab" data-mode="script">Script</button>
+        <button class="tab" data-mode="package">Full Package</button>
+        <button class="tab" data-mode="imagePrompts">Image Prompts</button>
+        <button class="tab" data-mode="imageVideo">Image → Video</button>
+        <button class="tab" data-mode="voiceover">Voice-over</button>
+        <button class="tab" data-mode="seo">SEO</button>
+        <button class="tab" data-mode="analyzer">Video Analyzer</button>
+        <button class="tab" data-mode="youtube">YouTube Data</button>
+      </div>
+
+      <div class="panel action-panel" id="normalActions">
+        <div>
+          <h3 id="modeTitle">Viral Topic Finder</h3>
+          <p id="modeHelp">Mythology niche ke liye 10 shorts aur 8 long video ideas generate karega.</p>
+        </div>
+        <div class="button-row">
+          <button class="primary" id="generateBtn">Generate</button>
+          <button class="secondary" id="copyBtn">Copy</button>
+          <button class="secondary" id="downloadBtn">Download TXT</button>
+          <button class="secondary" id="jsonBtn">Download JSON</button>
+        </div>
+      </div>
+
+      <div class="panel analyzer-panel hidden" id="analyzerPanel">
+        <div class="section-title"><span>Video Analyzer</span><small>MP4/WebM/MOV ≤ 22MB, ya transcript paste kare</small></div>
+        <div class="grid-2">
+          <div>
+            <label>Video Title</label>
+            <input id="analyzeTitle" placeholder="Apne video ka title paste kare" />
+          </div>
+          <div>
+            <label>Thumbnail Text</label>
+            <input id="thumbnailText" placeholder="Thumbnail text paste kare" />
+          </div>
+        </div>
+        <label>Script / Transcript / Voice-over Text</label>
+        <textarea id="transcript" rows="6" placeholder="Video ka script/transcript paste kare. Isse AI exact glti aur fix batayega."></textarea>
+        <label>Editing Notes</label>
+        <textarea id="editingNotes" rows="3" placeholder="Example: fast cuts, cinematic bgm, zoom effects, no subtitles..."></textarea>
+        <label>Upload Video/Audio Optional</label>
+        <input type="file" id="videoFile" accept="video/mp4,video/webm,video/quicktime,audio/*" />
+        <div class="button-row">
+          <button class="primary" id="analyzeBtn">Analyze Video</button>
+          <button class="secondary" id="copyAnalyzeBtn">Copy</button>
+        </div>
+      </div>
+
+      <div class="panel youtube-panel hidden" id="youtubePanel">
+        <div class="section-title"><span>YouTube Live Data</span><small>Optional: YOUTUBE_API_KEY required</small></div>
+        <div class="grid-2">
+          <div>
+            <label>Search Query</label>
+            <input id="ytQuery" value="Hindi mythology Hanuman Ramayan रहस्य" />
+          </div>
+          <div>
+            <label>Channel ID</label>
+            <input id="ytChannelId" placeholder="UC... channel ID" />
+          </div>
+        </div>
+        <div class="button-row">
+          <button class="primary" id="ytSearchBtn">Search Trend Videos</button>
+          <button class="secondary" id="ytChannelBtn">Fetch Channel Videos</button>
+          <button class="secondary" id="sendYtToAiBtn">Use Data for Topic Ideas</button>
+        </div>
+      </div>
+
+      <section class="result-shell panel">
+        <div class="result-head">
+          <div>
+            <h3>Output</h3>
+            <p id="resultMeta">Generate button दबाइए.</p>
+          </div>
+          <div class="score" id="scoreBox">AI</div>
+        </div>
+        <div class="loader hidden" id="loader"><span></span><span></span><span></span> Generating...</div>
+        <div id="result" class="result empty">Output yahan dikhega...</div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made for mythology creators • Respectful storytelling • No guaranteed virality, only better production decisions.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
